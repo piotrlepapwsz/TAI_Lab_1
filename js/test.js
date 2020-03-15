@@ -15,4 +15,4 @@ function formatCell(number) {
     } else {
         return ` ${number}`
     }
-};
+}
