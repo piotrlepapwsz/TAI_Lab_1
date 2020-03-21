@@ -1,9 +1,22 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: powderblue;
 }
+
 li {
     display: inline;
 }
+
 .footer {
     text-align: center;
+}
+
+.scroll {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: none;
 }
