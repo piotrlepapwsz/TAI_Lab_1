@@ -1,4 +1,5 @@
 let progress = document.querySelector('.progress');
+let error = document.querySelector('.error');
 
 let next = document.querySelector('.next');
 let previous = document.querySelector('.previous');
@@ -27,7 +28,7 @@ fetch('https://quiztai.herokuapp.com/api/quiz')
         list.style.display = 'block';
         setQuestion(index);
         activateAnswers();
-    }).catch((error) => {
+    }).catch((e) => {
     progress.style.display = 'none';
     error.style.display = 'block';
 });
