@@ -180,6 +180,12 @@ let answers = document.querySelectorAll('.list-group-item');
 
 let pointsElem = document.querySelector('.score');
 let restart = document.querySelector('.restart');
+
+let list = document.querySelector('.list');
+let results = document.querySelector('.results');
+let userScorePoint = document.querySelector('.userScorePoint');
+let average = document.querySelector('.average');
+
 let index = 0;
 let points = 0;
 
@@ -189,9 +195,10 @@ activateAnswers();
 next.addEventListener('click', function () {
     if (next.innerHTML === "Save") {
         saveUserResultToStorage();
-        next.innerHTML = "Next";
-        next.style.display = 'none';
-        previous.style.display = 'none';
+        list.style.display = 'none';
+        results.style.display = 'block';
+        userScorePoint.innerHTML = points;
+        average.innerHTML = localStorage.getItem('averageResultKey');
         return;
     }
 
@@ -304,6 +311,7 @@ restart.addEventListener('click', function (event) {
     userScorePoint.innerHTML = points;
     setQuestion(index);
     activateAnswers();
+    next.innerHTML = "Next";
     list.style.display = 'block';
     results.style.display = 'none';
 });
