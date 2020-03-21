@@ -187,16 +187,34 @@ setQuestion(index);
 activateAnswers();
 
 next.addEventListener('click', function () {
+    if (next.innerHTML === "Save") {
+        saveUserResultToStorage();
+        next.innerHTML = "Next";
+        next.style.display = 'none';
+        previous.style.display = 'none';
+        return;
+    }
+
     if (index < preQuestions.length - 1) {
         index++;
+
+        if (isLastQuestion(index)) {
+            next.innerHTML = "Save";
+        }
+
         setQuestion(index);
         activateAnswers();
     }
 });
 
+function isLastQuestion(index) {
+    return preQuestions.length === index + 1;
+}
+
 previous.addEventListener('click', function () {
     if (index > 0) {
         index--;
+        next.innerHTML = "Next";
         setQuestion(index);
         activateAnswers();
     }
@@ -256,6 +274,25 @@ function disableAnswers() {
     for (let i = 0; i < answers.length; i++) {
         answers[i].removeEventListener('click', doAction);
     }
+}
+
+function saveUserResultToStorage() {
+    const savedUserResult = localStorage.getItem('averageResultKey');
+    const savedGamesCount = localStorage.getItem('gamesCountKey');
+
+    if (savedUserResult === null) {
+        localStorage.setItem('averageResultKey', points);
+        localStorage.setItem('gamesCountKey', 1);
+    } else {
+        const averageResult = calculateAverageResult(savedUserResult, savedGamesCount, points);
+        localStorage.setItem('averageResultKey', averageResult);
+        localStorage.setItem('gamesCountKey', parseInt(savedGamesCount) + 1);
+    }
+}
+
+function calculateAverageResult(savedResult, savedGamesCount, currentResult) {
+    const sumFromSavedGames = parseFloat(savedResult) * parseInt(savedGamesCount);
+    return (sumFromSavedGames + currentResult) / (parseInt(savedGamesCount) + 1);
 }
 
 restart.addEventListener('click', function (event) {
