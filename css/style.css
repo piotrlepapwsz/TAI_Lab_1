@@ -38,3 +38,9 @@ li {
 .buttons {
     padding: 10px 10px 10px 0;
 }
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
